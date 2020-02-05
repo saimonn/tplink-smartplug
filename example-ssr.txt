@@ -1,0 +1,15 @@
+./tplink_smartplug.py -t $hs100ip -c schedule
+
+# clear all schedule rules:
+./tplink_smartplug.py -t $hs100ip -j '{"schedule":{"delete_all_rules":null,"erase_runtime_stat":null}}'
+
+# reboot:  on mon, wed, sat, around 18:00
+
+## reboot: on mon, wed, sat, at 18:01 switch on
+./tplink_smartplug.py -t $hs100ip -j '{"schedule":{"add_rule":{"stime_opt":0,"wday":[0,1,0,1,0,1,0],"smin":1081,"enable":1,"repeat":1,"etime_opt":-1,"name":"vend 18h01 on","eact":-1,"month":0,"sact":1,"year":0,"longitude":0,"day":0,"force":0,"latitude":0,"emin":0},"set_overall_enable":{"enable":1}}}'
+
+## reboot: on mon, wed, sat, at 18:00 switch off
+./tplink_smartplug.py -t $hs100ip -j '{"schedule":{"add_rule":{"stime_opt":0,"wday":[0,1,0,1,0,1,0],"smin":1080,"enable":1,"repeat":1,"etime_opt":-1,"name":"vend 18h00 off","eact":-1,"month":0,"sact":0,"year":0,"longitude":0,"day":0,"force":0,"latitude":0,"emin":0},"set_overall_enable":{"enable":1}}}'
+
+# display current schedules:
+./tplink_smartplug.py -t $hs100ip -c schedule
